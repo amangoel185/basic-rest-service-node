@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>basic REST client</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .container {
+        height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 27px;
+    }
+    
+    label,
+    input[type="submit"] {
+        margin-top: 27px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>POST form</h1>
+        </h1>
+        <form>
+            <label>first number:</label>
+            <input id="num1" type="number" />
+            <label>second number:</label>
+            <input id="num2" type="number" />
+            <input type="submit" value="add" />
+        </form>
+        <div class="result">press add :)</div>
+    </div>
+    <script>
+        document.addEventListener("submit", sendData);
+
+        function sendData(e) {
+            e.preventDefault();
+            const x = document.querySelector("#num1").value;
+            const y = document.querySelector("#num2").value;
+            fetch("/add", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        x: parseInt(x),
+                        y: parseInt(y)
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const {
+                        result
+                    } = data;
+                    document.querySelector(
+                        ".result"
+                    ).innerText = `the sum of the given numbers is: ${result}`;
+                })
+                .catch(err => console.log(err));
+        }
+    </script>
+</body>
+
+</html>
