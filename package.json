@@ -19,6 +19,6 @@
   "homepage": "https://github.com/amangoel185/basic-rest-service-node#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
-    "express": "^4.17.3"
+    "express": "^4.19.2"
   }
 }
